@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request
 
+import ProjectControl
 from ProjectAdmin import ProjectAdmin
 from ProjectColaborador import ProjectColaborador
 from ProjectManager import ProjectManager
@@ -70,17 +71,8 @@ def upload_file():
 @app.route('/new_project', methods=['POST'])
 @login_required
 def new_project():
-    if request.method == 'POST':
-        id = request.form['id']
-        proyecto = request.form['proyecto']
-        imagen = request.files['imagen']
-        descripcion = request.form['descripcion']
-        if allowed_image(imagen.filename):
-            pr = ProjectManager()
-            pr.crear_proyecto(id, proyecto, imagen, descripcion)
-            return 'files uploaded successfully'
-        else:
-            return 'Alguno de los archivos subidos no tiene la extensión propicia.'
+    pr = ProjectManager(request)
+    pr.crear_proyecto()
 
 """
     peticion [Get] /delete_project/<int:id_project>
@@ -89,110 +81,119 @@ def new_project():
 """
 @app.route('/delete_project/<int:id_project>', methods=['GET'])
 @login_required
-@administrador_required
 def delete_project(id_project):
-    if request.method == 'GET':
-        pa = ProjectAdmin()
+    if ProjectControl.es_admin(get_id_propio(), id_project):
+        pa = ProjectAdmin(request)
         pa.delete_proyecto(id_project)
+    else:
+        return "No se tienen los privilegios necesarios."
 
 
 """
-    peticion [Post] /modify_project
+    peticion [Post] /modify_project/<int:id_project>
     formato: formData de javascript
     id = id del usuario que está subiendo el archivo
     proyecto = nuevo nombre del proyecto que está creando
     imagen = la imagen del proyecto.
     descripcion = la descripcion del proyecto
 """
-@app.route('/modify_project', methods=['POST'])
+@app.route('/modify_project/<int:id_project>', methods=['POST'])
 @login_required
-@administrador_required
-def new_project():
-    if request.method == 'POST':
-        id = request.form['id']
-        proyecto = request.form['proyecto']
-        imagen = request.files['imagen']
-        descripcion = request.form['descripcion']
-        if allowed_image(imagen.filename):
-            pr = ProjectAdmin()
-            pr.modificar_proyecto(id, proyecto, imagen, descripcion)
-            return 'files uploaded successfully'
-        else:
-            return 'Alguno de los archivos subidos no tiene la extensión propicia.'
+def modify_project(id_project):
+    if ProjectControl.es_admin(get_id_propio(), id_project):
+        pa = ProjectAdmin(request)
+        pa.modificar_proyecto()
+    else:
+        return "No se tienen los privilegios necesarios."
 
 
 """
-    peticion [Post] /privacidad_project
+    peticion [Post] /privacidad_project/<int:id_project>
     formato: formData de javascript
     id_proyecto = nuevo nombre del proyecto que está creando
     privacidad = un string con publico o privado.
 """
-@app.route('/privacidad_project', methods=['POST'])
+@app.route('/privacidad_project/<int:id_project>', methods=['POST'])
 @login_required
-@administrador_required
-def privacidad_project():
-    if request.method == 'POST':
-        proyecto = request.form['id_proyecto']
-        privacidad = request.form['privacidad']
-        if privacidad == "publico" or privacidad == "privado":
-            pr = ProjectAdmin()
-            pr.set_privacidad(privacidad, proyecto)
-        else:
-            return 'La privacidad puede ser publica o privada'
+def privacidad_project(id_project):
+    if ProjectControl.es_admin(get_id_propio(), id_project):
+        pa = ProjectAdmin(request)
+        pa.modificar_proyecto()
+    else:
+        return "No se tienen los privilegios necesarios."
 
 
 """
-    peticion [Post] /add_pista
+    peticion [Post] /add_pista/<int:id_project>
     formato: formData de javascript
     id_proyecto = nuevo nombre del proyecto que está creando
     pista_nueva = un archivo de audio con la pista nueva
 """
-@app.route('/privacidad_project', methods=['POST'])
+@app.route('/add_pista/<int:id_project>', methods=['POST'])
 @login_required
-def privacidad_project():
+def add_pista(id_project):
     if request.method == 'POST':
-        id_usuario = get_id_propio()
-        proyecto = request.form['id_proyecto']
-        pista = request.pista['pista_nueva']
-        if ProjectManager.es_privado(proyecto) and ProjectManager.colaborador(proyecto,id_usuario):
-            pr = ProjectColaborador()
-        elif ProjectManager.es_privado(proyecto) and ProjectManager.administrador(proyecto, id_usuario):
-            pr = ProjectAdmin()
-        elif ProjectManager.es_privado(proyecto):
-            pr = ProjectManager()
-        else:
-            return 'No se tienen los privilegios necesarios para dicha accion'
+        id = get_id_propio()
+        if ProjectControl.es_admin(id, id_project):
+            pr = ProjectColaborador(request)
+        elif ProjectControl.es_colaborador(id, id_project):
+            pr = ProjectAdmin(request)
+        else: #es publico
+            pr = ProjectManager(request)
+        pr.add_pista()
 
-        if allowed_audio(pista.filename):
-            pr.add_pista(pista, proyecto)
-        else:
-            return 'El formato de audio aceptado es MP3'
 """
-    peticion [Post] /delete_pista
+    peticion [GET] /delete_pista/<int:id_project>
     formato: formData de javascript
     id_proyecto = nuevo nombre del proyecto que está creando
-    pista_nueva = un archivo de audio con la pista nueva
+    id_pista = el identificador de la pista que se quiere borrar
 """
-@app.route('/privacidad_project', methods=['GET'])
+@app.route('/delete_pista/<int:id_project>', methods=['GET'])
 @login_required
-def privacidad_project():
+def delete_pista(id_project):
     if request.method == 'POST':
-        id_usuario = get_id_propio()
-        proyecto = request.form['id_proyecto']
-        pista = request.pista['pista_nueva']
-        if ProjectManager.es_privado(proyecto) and ProjectManager.colaborador(proyecto,id_usuario):
-            pr = ProjectColaborador()
-        elif ProjectManager.es_privado(proyecto) and ProjectManager.administrador(proyecto, id_usuario):
-            pr = ProjectAdmin()
-        elif ProjectManager.es_privado(proyecto):
-            pr = ProjectManager()
+        id = get_id_propio()
+        if ProjectControl.es_admin(id, id_project):
+            pr = ProjectColaborador(request)
+        elif ProjectControl.es_colaborador(id, id_project):
+            pr = ProjectAdmin(request)
         else:
             return 'No se tienen los privilegios necesarios para dicha accion'
+        pr.delete_pista()
 
-        if allowed_audio(pista.filename):
-            pr.add_pista(pista, proyecto)
+"""
+    peticion [Post] /add_colaborador/<int:id_project>
+    formato: formData de javascript
+    id_proyecto = nuevo nombre del proyecto que está creando
+    id_nuevo_colaborador = id del colaborador que se desea añadir
+"""
+@app.route('/add_colaborador', methods=['GET'])
+@login_required
+def add_colaborador(id_project):
+    if request.method == 'POST':
+        if ProjectControl.es_admin(get_id_propio(), id_project)
+            pr = ProjectAdmin(request)
+        elif ProjectControl.es_colaborador(get_id_propio(), id_project):
+            pr = ProjectColaborador(request)
         else:
-            return 'El formato de audio aceptado es MP3'
+            return 'No se tienen los privilegios necesarios para dicha accion'
+        pr.add_pista()
+
+"""
+    peticion [Post] /set_comentario
+    formato: formData de javascript
+    id_proyecto = nuevo nombre del proyecto que está creando
+    id_mensaje = mensjae al que se comenta
+    comentario = el texto del comentario
+    
+"""
+@app.route('/set_comentario', methods=['GET'])
+@login_required
+def set_comentario():
+    if request.method == 'POST':
+        pr = ProjectManager(request)
+        pr.comentar()
+
 
 if __name__ == '__main__':
     app.run(debug=True)
