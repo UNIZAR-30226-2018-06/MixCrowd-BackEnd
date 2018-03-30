@@ -29,8 +29,6 @@ class ProjectManager(object):
             imagen = request.files['imagen']
             descripcion = request.form['descripcion']
             if ProjectManager.allowed_image(imagen.filename):
-                pr = ProjectManager()
-                pr.crear_proyecto(id, proyecto, imagen, descripcion)
                 db.crear_proyecto(id, proyecto, imagen, descripcion)
             else:
                 return 'Alguno de los archivos subidos no tiene la extensión propicia.'

@@ -10,8 +10,8 @@ class ProjectColaborador(ProjectManager):
         request = cls.request
         proyecto = request.form['id_proyecto']
         id_pista = request.pista['pista_nueva']
-        if ProjectManager.allowed_audio(pista.filename):
-            pr.delete_pista(pista, proyecto)
+        if ProjectManager.allowed_audio(id_pista.filename):
+            pr.delete_pista(id_pista, proyecto)
         else:
             return 'El formato de audio aceptado es MP3'
         db.delete_pista(id_pista, proyecto)

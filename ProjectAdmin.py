@@ -9,7 +9,7 @@ class ProjectAdmin(ProjectColaborador):
 
     @classmethod
     def delete_proyecto(cls, id_proyecto):
-        db.delete_pista(id_proyecto)
+        db.delete_proyecto(id_proyecto)
 
     @classmethod
     def modificar_proyecto(cls):
