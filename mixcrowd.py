@@ -128,6 +128,8 @@ def privacidad_project(id_project):
     formato: formData de javascript
     id_proyecto = nuevo nombre del proyecto que está creando
     pista_nueva = un archivo de audio con la pista nueva
+    instante = momento en el que se tiene que empezar a mezclar la pista
+    panning = https://es.wikipedia.org/wiki/Panning /// entre el 0 y el 100 siendo 50 el centro
 """
 @app.route('/add_pista/<int:id_project>', methods=['POST'])
 @login_required
@@ -171,7 +173,7 @@ def delete_pista(id_project):
 @login_required
 def add_colaborador(id_project):
     if request.method == 'POST':
-        if ProjectControl.es_admin(get_id_propio(), id_project)
+        if ProjectControl.es_admin(get_id_propio(), id_project):
             pr = ProjectAdmin(request)
         elif ProjectControl.es_colaborador(get_id_propio(), id_project):
             pr = ProjectColaborador(request)
@@ -193,6 +195,29 @@ def set_comentario():
     if request.method == 'POST':
         pr = ProjectManager(request)
         pr.comentar()
+
+
+"""
+    peticion [GET] /mezclar/<int:id_project>
+    devuelve la direccion de static donde está el audio mezclado.
+
+"""
+@app.route('/set_comentario', methods=['GET'])
+@login_required
+def mezclar(id_project):
+    if request.method == 'GET':
+        if ProjectControl.es_admin(get_id_propio(), id_project):
+            pr = ProjectAdmin(request)
+        elif ProjectControl.es_colaborador(get_id_propio(), id_project):
+            pr = ProjectColaborador(request)
+        else:
+            pr = ProjectManager(request)
+        audio=pr.mezclar(id_project)
+        if not audio:
+            return "No hay pistas en el proyecto"
+        else:
+            return audio
+
 
 
 if __name__ == '__main__':
