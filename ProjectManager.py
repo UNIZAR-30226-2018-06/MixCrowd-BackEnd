@@ -46,7 +46,7 @@ class ProjectManager(object):
             return 'El formato de audio aceptado es MP3'
 
     @classmethod
-    def comentar(cls, text, proyecto, idRespondiendo):
+    def comentar(cls):
         request = cls.request
         idRespondiendo = request.form['id_mensaje']
         proyecto = request.form['id_proyecto']
