@@ -4,7 +4,7 @@
 
 class ProjectManager(object):
     def __init__(self,request):
-        self.db = dbadapter()
+        self.db = DbAdapter()
         self.id = obtener_id_propio()
         self.request = request
 
