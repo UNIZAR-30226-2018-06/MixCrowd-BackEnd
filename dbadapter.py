@@ -36,23 +36,42 @@ class DbAdapter:
 
 	def mas_visitados():	
 		#mostrar los proyectos mas visitados,p.e. 100
-		res=db.engine.execute('SELECT * FROM proyecto ORDER BY numVisitas DESC LIMIT 100;')
+		res=db.engine.execute('SELECT  FROM proyecto ORDER BY numVisitas DESC LIMIT 100;')
+		return res;
 
-	def es_publico(idPropio,idProyecto):
-		#si no es se devuelve null
+	def es_administrador(idPropio,idProyecto):
+		#saber si un user es administrador de un proyecto
+		res=db.engine.execute('SELECT administrador FROM proyecto where idProyecto=nombre;')
+		if idProyecto=idPropio
+			return true
+		else
+			return false	
+
+	def es_publico(idProyecto):
+		#si es publico devuelve true, si no devuelve false
+		res=db.engine.execute('SELECT privacidad FROM proyecto;')
+		return res
 	
 	def es_colaborador(idPropio,idProyecto):
-		#si no es se devuelve null
+		#devuelve true si idPropio es colaborador del proyecto idProyecto
+		res=db.engine.execute('SELECT EXISTS (SELECT TRUE FROM colabora WHERE nombre=idProyecto AND user=idPropio );')
+		return res
 	
 	def get_pistas_proyecto(idProyecto):
 		#devuelve una lista de listas, Cada
 		#[ [id,Audio,Panning,Instante],[],..]
 	
 	def buscar_proyecto(proyecto):
-		#na
+		#busca un proyecto
+		res=db.engine.execute('SELECT nombre FROM proyecto WHERE nombre=proyecto;')
+		return res
 
 	def buscar_usuario(user):
 		#na
+		res=db.engine.execute('SELECT nombre FROM usuario WHERE nombre=user;')
+		return res
 
 	def buscar_amigos(user):
 		#na
+		res=db.engine.execute('SELECT usuario_2 FROM amistad WHERE usuario_1=user;')
+		return res
