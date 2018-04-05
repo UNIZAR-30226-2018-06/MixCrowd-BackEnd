@@ -9,6 +9,8 @@ class DbAdapter:
 	def mostrar_recomendaciones(idUser):
 		#mirar tabla de mas vistos por user
 		#tags, categorias y demas
+		res=db.engine.execute('SELECT DISTINCT p.nombre, p.valoracion FROM proyecto p, etiqueta e WHERE e.proyecto_nombre=v.proyecto_nombre AND e.categoria IN (SELECT etiqueta FROM (SELECT etiqueta, suma FROM (SELECT e.categoria etiqueta, SUM(v.valor) suma FROM valoracion v, etiqueta e WHERE v.usuario_nombre=idUser AND e.proyecto_nombre=v.proyecto_nombre GROUP BY e.categoria) ORDER BY suma DESC LIMIT 5)) ORDER BY p.valoracion DESC LIMIT 100;')
+		return res
 
 	def anyadir_valoracion(user,valoracion,proyecto):
 		#lo del db engine es para conectarse a la base, lo pondremos en marcha mas adelante.
@@ -16,7 +18,6 @@ class DbAdapter:
 		db.engine.execute('INSERT INTO ha_valorado VALUES (user,valoracion,proyecto) ON CONFLICT (usuario,proyecto) DO UPDATE SET valoracion = Excluded.valoracion;')
 		#ademas de esto hara falta un trigger para que al meter info en
 		#la tabla ha valorado, se recalcule la valoracion media del proyecto
-
 
 	def contar_visitaUser(user,proyecto):	
 		#aumentar numero de visitas en 1 en proyecto
@@ -37,7 +38,7 @@ class DbAdapter:
 	def mas_visitados():	
 		#mostrar los proyectos mas visitados,p.e. 100
 		res=db.engine.execute('SELECT  FROM proyecto ORDER BY numVisitas DESC LIMIT 100;')
-		return res;
+		return res
 
 	def es_administrador(idPropio,idProyecto):
 		#saber si un user es administrador de un proyecto
@@ -58,9 +59,11 @@ class DbAdapter:
 		return res
 	
 	def get_pistas_proyecto(idProyecto):
-		#devuelve una lista de listas, Cada
+		#devuelve una lista de pistas, Cada
 		#[ [id,Audio,Panning,Instante],[],..]
-	
+		res=db.engine.execute('SELECT p.nombre, p.fecha, p.audio FROM pista p WHERE p.proyecto_nombre=idProyecto;')
+		return res
+
 	def buscar_proyecto(proyecto):
 		#busca un proyecto
 		res=db.engine.execute('SELECT nombre FROM proyecto WHERE nombre=proyecto;')

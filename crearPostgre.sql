@@ -1,16 +1,41 @@
+DROP TABLE usuario CASCADE;
+DROP TABLE proyecto CASCADE;
+DROP TABLE etiqueta CASCADE;
+DROP TABLE colabora CASCADE;
+DROP TABLE amistad CASCADE;
+DROP TABLE comentario CASCADE;
+DROP TABLE lista CASCADE;
+DROP TABLE pertenece CASCADE;
+DROP TABLE pista CASCADE;
+DROP TABLE valoracion CASCADE;
+DROP TABLE visita CASCADE;
+
+
+CREATE TABLE usuario (
+	nombre			char(40)	PRIMARY KEY CHECK (nombre <> '')
+);
+
 CREATE TABLE proyecto (
 	nombre			char(40)	PRIMARY KEY CHECK (nombre <> ''),
 	fechaCreacion	date		NOT NULL,
 	fechaUltimaMod	date		NOT NULL,
-	categoria		char(100)	NOT NULL	CHECK (categoria <> ''),
-	numVisitas		integer		NOT NULL,
-	imagen			text 		NOT NULL,
+	numVisitas		integer		DEFAULT 0,
+	imagen			text,
 	privacidad		boolean		NOT NULL,
-	valoracion		integer		NOT NULL
+	valoracion		integer		DEFAULT 0,
+	administrador	char(40)	REFERENCES	usuario(nombre)
 );
 
-CREATE TABLE usuario (
-	nombre			char(40)	PRIMARY KEY CHECK (nombre <> '')
+CREATE TABLE etiqueta (
+	categoria		char(100)	NOT NULL	CHECK (categoria <> ''),
+	proyecto_nombre	char(40)	REFERENCES	proyecto (nombre),
+	PRIMARY KEY(categoria,proyecto_nombre)
+);
+
+CREATE TABLE colabora (
+	proyecto_nombre	char(40)	REFERENCES	proyecto (nombre),
+	usuario 		char(40)	REFERENCES	usuario (nombre),
+	PRIMARY KEY(proyecto_nombre,usuario)
 );
 
 CREATE TABLE amistad (
@@ -42,12 +67,21 @@ CREATE TABLE pertenece (
 CREATE TABLE pista (
 	nombre			char(40)	CHECK (nombre <> ''),
 	proyecto_nombre	char(40)	REFERENCES	proyecto (nombre),
-	audio			bytea		NOT NULL,
+	audio			bytea,
+	fecha 			date		NOT NULL,
 	PRIMARY KEY(nombre,proyecto_nombre)
 );
 
 CREATE TABLE valoracion (
 	proyecto_nombre	char(40)	REFERENCES	proyecto (nombre),
 	usuario_nombre	char(40)	REFERENCES	usuario (nombre),
+	valor 			integer 	NOT NULL,
 	PRIMARY KEY(usuario_nombre,proyecto_nombre)
 );	
+
+CREATE TABLE visita (
+	proyecto_nombre	char(40)	REFERENCES	proyecto (nombre),
+	usuario_nombre	char(40)	REFERENCES	usuario (nombre),
+	fecha 			date		NOT NULL,
+	PRIMARY KEY(usuario_nombre,proyecto_nombre,fecha)
+);
