@@ -1,0 +1,22 @@
+La instalación de PostgreSQL se ha realizado mediante el propio sistema gestor de paquetes de la distribución, usando el siguiente comando:
+	$ apt-get install postgresql postgresql-contrib
+De esta forma se instala el gestor y el paquete "contrib" que incluye algunas funcionalidades aparte. La instalación genera un nuevo usuario "postgres" en el sistema que es el único que puede conectarse al servidor PostgreSQL. Para poder conectarse con él primero se debe cambiar la contraseña con el usuario "root" del sistema y luego hacer login con él:
+	$ passwd postgres
+	$ login postgres
+Una vez en el "shell" del nuevo usuario podemos conectarnos al servidor. En PostgreSQL los usuarios funcionan con roles, lo que significa que puedes crear un nuevo rol en el servidor, y podrás conectarte con ese rol si existe en el sistema un mismo usuario con el nombre del rol. Se creará una nueva base de datos, "mixCrowd", un nuevo rol llamado "admin" y a continuación se creará un usuario en el sistema con el mismo nombre:
+	postgres$ createuser admin
+	Shall the new role be a superuser? (y/n) n
+	Shall the new role be allowed to create databases? (y/n) n
+	Shall the new role be allowed to create more new roles? (y/n) n
+	postgres$ createdb mixCrowd
+	postgres$ psql
+Ahora ya se ha creado el nuevo rol, pero se le deben otorgar permisos en la nueva base de datos, por ello se accede al servidor mediante el comando "psql", y una vez dentro se ejecutan las siguientes sentencias:
+	ALTER USER admin WITH ENCRYPTED PASSWORD 'password';
+	GRANT ALL PRIVILEGES ON DATABASE practica1 TO admin;
+Ahora ya se tiene el nuevo rol en el servidor PostgreSQL, pero es necesario que exista en el sistema un usuario con el mismo nombre que el rol, para ello, desde el "shell" del usuario "root" se puede crear un nuevo usuario mediante el comando "useradd".
+	$ useradd -m admin -p password
+Se puede comprobar que el servidor se inicia automáticamente al reiniciar la máquina con la salida del siguiente comando:
+	$ service postgresql status
+Para acceder al servidor como "admin" y trabajar en la base de datos "mixCrowd" tras encender la máquina se deben ejecutar los siguientes comandos:
+	$ login admin
+	admin$ psql -d mixCrowd

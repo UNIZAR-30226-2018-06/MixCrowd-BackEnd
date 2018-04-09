@@ -12,13 +12,14 @@ DROP TABLE visita CASCADE;
 
 
 CREATE TABLE usuario (
-	nombre			char(40)	PRIMARY KEY CHECK (nombre <> '')
+	nombre			char(40)	PRIMARY KEY CHECK (nombre <> ''),
+	fechaRegistro	date 		DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE proyecto (
 	nombre			char(40)	PRIMARY KEY CHECK (nombre <> ''),
-	fechaCreacion	date		NOT NULL,
-	fechaUltimaMod	date		NOT NULL,
+	fechaCreacion	date		DEFAULT CURRENT_TIMESTAMP,
+	fechaUltimaMod	date		DEFAULT CURRENT_TIMESTAMP,
 	numVisitas		integer		DEFAULT 0,
 	imagen			text,
 	privacidad		boolean		NOT NULL,
@@ -45,7 +46,7 @@ CREATE TABLE amistad (
 );
 
 CREATE TABLE comentario (
-	fecha 			date		NOT NULL,
+	fecha 			date		DEFAULT CURRENT_TIMESTAMP,
 	texto			char(300)	NOT NULL	CHECK (texto <> ''),
 	proyecto_nombre	char(40)	REFERENCES	proyecto (nombre),
 	comentador		char(40)	REFERENCES	usuario (nombre),
@@ -55,7 +56,7 @@ CREATE TABLE comentario (
 
 CREATE TABLE lista (
 	nombre			char(40)	PRIMARY KEY CHECK (nombre <> ''),
-	fechaCreacion	date		NOT NULL
+	fechaCreacion	date		DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE pertenece (
@@ -68,7 +69,7 @@ CREATE TABLE pista (
 	nombre			char(40)	CHECK (nombre <> ''),
 	proyecto_nombre	char(40)	REFERENCES	proyecto (nombre),
 	audio			bytea,
-	fecha 			date		NOT NULL,
+	fecha 			date		DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY(nombre,proyecto_nombre)
 );
 
@@ -82,6 +83,6 @@ CREATE TABLE valoracion (
 CREATE TABLE visita (
 	proyecto_nombre	char(40)	REFERENCES	proyecto (nombre),
 	usuario_nombre	char(40)	REFERENCES	usuario (nombre),
-	fecha 			date		NOT NULL,
+	fecha 			date		DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY(usuario_nombre,proyecto_nombre,fecha)
 );
