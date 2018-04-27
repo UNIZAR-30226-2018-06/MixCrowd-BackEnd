@@ -12,8 +12,7 @@ DROP TABLE visita CASCADE;
 
 
 CREATE TABLE usuario (
-	nombre			char(40)	PRIMARY KEY CHECK (nombre <> ''),
-	fechaRegistro	date 		DEFAULT CURRENT_TIMESTAMP
+	nombre			char(40)	PRIMARY KEY CHECK (nombre <> '')
 );
 
 CREATE TABLE proyecto (
@@ -24,34 +23,43 @@ CREATE TABLE proyecto (
 	imagen			text,
 	privacidad		boolean		NOT NULL,
 	valoracion		integer		DEFAULT 0,
-	administrador	char(40)	REFERENCES	usuario(nombre)
+	administrador	char(40),
+	FOREIGN KEY (administrador) REFERENCES usuario(nombre)
 );
 
 CREATE TABLE etiqueta (
 	categoria		char(100)	NOT NULL	CHECK (categoria <> ''),
-	proyecto_nombre	char(40)	REFERENCES	proyecto (nombre),
-	PRIMARY KEY(categoria,proyecto_nombre)
+	proyecto_nombre	char(40),
+	PRIMARY KEY(categoria,proyecto_nombre),
+	FOREIGN KEY (proyecto_nombre) REFERENCES proyecto (nombre)
 );
 
 CREATE TABLE colabora (
-	proyecto_nombre	char(40)	REFERENCES	proyecto (nombre),
-	usuario 		char(40)	REFERENCES	usuario (nombre),
-	PRIMARY KEY(proyecto_nombre,usuario)
+	proyecto_nombre	char(40),
+	usuario 		char(40),
+	PRIMARY KEY(proyecto_nombre,usuario),
+	FOREIGN KEY (proyecto_nombre) REFERENCES proyecto (nombre),
+	FOREIGN KEY (usuario) REFERENCES usuario(nombre)
 );
 
 CREATE TABLE amistad (
-	usuario_1		char(40)	REFERENCES	usuario (nombre),
-	usuario_2		char(40)	REFERENCES	usuario (nombre)	CHECK (usuario_1 <> usuario_2),
-	PRIMARY KEY(usuario_1,usuario_2)
+	usuario_1		char(40),
+	usuario_2		char(40)	CHECK (usuario_1 <> usuario_2),
+	PRIMARY KEY(usuario_1,usuario_2),
+	FOREIGN KEY (usuario_1) REFERENCES usuario(nombre),
+	FOREIGN KEY (usuario_2) REFERENCES usuario(nombre)
 );
 
 CREATE TABLE comentario (
 	fecha 			date		DEFAULT CURRENT_TIMESTAMP,
 	texto			char(300)	NOT NULL	CHECK (texto <> ''),
-	proyecto_nombre	char(40)	REFERENCES	proyecto (nombre),
-	comentador		char(40)	REFERENCES	usuario (nombre),
-	receptor		char(40)	REFERENCES	usuario (nombre),
-	PRIMARY KEY(fecha,comentador)
+	proyecto_nombre	char(40),
+	comentador		char(40),
+	receptor		char(40),
+	PRIMARY KEY(fecha,comentador),
+	FOREIGN KEY (proyecto_nombre) REFERENCES proyecto (nombre),
+	FOREIGN KEY (comentador) REFERENCES usuario(nombre),
+	FOREIGN KEY (receptor) REFERENCES usuario(nombre)
 );
 
 CREATE TABLE lista (
@@ -60,29 +68,36 @@ CREATE TABLE lista (
 );
 
 CREATE TABLE pertenece (
-	proyecto_nombre	char(40)	REFERENCES	proyecto (nombre),
-	lista_nombre	char(40)	REFERENCES	lista (nombre),
-	PRIMARY KEY(proyecto_nombre,lista_nombre)
+	proyecto_nombre	char(40),
+	lista_nombre	char(40),
+	PRIMARY KEY(proyecto_nombre,lista_nombre),
+	FOREIGN KEY (proyecto_nombre) REFERENCES proyecto (nombre),
+	FOREIGN KEY (lista_nombre) REFERENCES lista (nombre)
 );
 
 CREATE TABLE pista (
 	nombre			char(40)	CHECK (nombre <> ''),
-	proyecto_nombre	char(40)	REFERENCES	proyecto (nombre),
+	proyecto_nombre	char(40),
 	audio			bytea,
 	fecha 			date		DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY(nombre,proyecto_nombre)
+	PRIMARY KEY(nombre,proyecto_nombre),
+	FOREIGN KEY (proyecto_nombre) REFERENCES proyecto (nombre)
 );
 
 CREATE TABLE valoracion (
-	proyecto_nombre	char(40)	REFERENCES	proyecto (nombre),
-	usuario_nombre	char(40)	REFERENCES	usuario (nombre),
+	proyecto_nombre	char(40),
+	usuario_nombre	char(40),
 	valor 			integer 	NOT NULL,
-	PRIMARY KEY(usuario_nombre,proyecto_nombre)
+	PRIMARY KEY(usuario_nombre,proyecto_nombre),
+	FOREIGN KEY (proyecto_nombre) REFERENCES proyecto (nombre),
+	FOREIGN KEY (usuario_nombre) REFERENCES usuario(nombre)
 );	
 
 CREATE TABLE visita (
-	proyecto_nombre	char(40)	REFERENCES	proyecto (nombre),
-	usuario_nombre	char(40)	REFERENCES	usuario (nombre),
+	proyecto_nombre	char(40),
+	usuario_nombre	char(40),
 	fecha 			date		DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY(usuario_nombre,proyecto_nombre,fecha)
+	PRIMARY KEY(usuario_nombre,proyecto_nombre,fecha),
+	FOREIGN KEY (proyecto_nombre) REFERENCES proyecto (nombre),
+	FOREIGN KEY (usuario_nombre) REFERENCES usuario(nombre)
 );
