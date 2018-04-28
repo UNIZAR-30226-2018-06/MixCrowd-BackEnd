@@ -19,7 +19,7 @@ CREATE TABLE proyecto (
 	nombre			char(40)	PRIMARY KEY CHECK (nombre <> ''),
 	fechaCreacion	date		DEFAULT CURRENT_TIMESTAMP,
 	fechaUltimaMod	date		DEFAULT CURRENT_TIMESTAMP,
-	numVisitas		integer		DEFAULT 0,
+	numVisitas		integer		NOT NULL DEFAULT 0,
 	imagen			text,
 	privacidad		boolean		NOT NULL,
 	valoracion		integer		DEFAULT 0,
