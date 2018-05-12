@@ -4,29 +4,32 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 from flask_sqlalchemy  import SQLAlchemy
+from sqlalchemy import create_engine
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/login_db'
+#app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:1234@localhost:2223/practica1'
 #sqlite:////mnt/c/Users/antho/Documents/login-example/database.db
+engine=create_engine('postgresql://admin:1234@localhost:2223/practica1')
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(15), unique=True)
-    email = db.Column(db.String(50), unique=True)
-    password = db.Column(db.String(80))
+#class User(UserMixin, db.Model):
+ #   id = db.Column(db.Integer, primary_key=True)
+  #  username = db.Column(db.String(15), unique=True)
+   # email = db.Column(db.String(50), unique=True)
+    #password = db.Column(db.String(80))
 
 @login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+#def load_user(user_id):
+ #   return engine.execute("select nombre from usuario ")
+    #return User.query.get(int(user_id))
 
 class LoginForm(FlaskForm):
     username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
@@ -53,7 +56,8 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        #user = User.query.filter_by(username=form.username.data).first()
+        
         if user:
             if check_password_hash(user.password, form.password.data):
                 login_user(user, remember=form.remember.data)

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sign-Up/Login Form</title>
+  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  
+      <link rel="stylesheet" href="css/style.css">
+
+
+  <style>
+    body {
+      background-image: url("Tocadiscos.gif");
+      background-color: #cccccc;
+      background-size: cover;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      position:absolute;
+      z-index:1;
+      width:100%;
+      height:100%;
+    }
+  </style>
+
+  <script>
+      //Mostrara u ocultara la contraseña del Login
+      function showPassLog() {
+          var x = document.getElementById("pswdlog");
+          if (x.type === "password") {
+              x.type = "text";
+          } else {
+              x.type = "password";
+          }
+      }
+  </script>
+
+  <script>
+      //Mostrara u ocultara la contraseña del Sign up
+      function showPassSign() {
+          var x = document.getElementById("pswdsign");
+          if (x.type === "password") {
+              x.type = "text";
+          } else {
+              x.type = "password";
+          }
+      }
+  </script>
+
+</head>
+
+<body>
+
+
+  <div class="form">
+      
+      <ul class="tab-group">
+        <li class="tab active"><a href="#login">Log In</a></li>
+        <li class="tab"><a href="#signup">Sign Up</a></li>
+      </ul>
+
+      <div class="tab-content">
+
+        
+        <div id="login">   
+          <h1>Welcome Back!</h1>
+          
+          <form action="/" method="post">
+          
+            <div class="field-wrap">
+              <label>
+               Email Address<span class="req">*</span>
+              </label>
+              <input type="email"required autocomplete="off"/>
+            </div>
+          
+            <div class="field-wrap">
+              <label>
+                Password<span class="req">*</span>
+              </label>
+              <input type="password"required autocomplete="off" id="pswdlog"/>
+            </div>
+          
+            <p class="forgot"><a href="#">Forgot Password?</a>
+            </p>
+
+
+            <div class="top-row">
+              <h3><input type="checkbox" onclick="showPassLog()">Show Password</h3>
+            </div>
+          
+            <button class="button button-block"/>Log In</button>
+            <!-- Validar los datos + cambiar si validos href-->
+          
+          </form>
+
+        </div>
+
+        <div id="signup">
+          <h1>Sign Up for Free</h1>
+
+          <form action="/" method="post">
+
+
+              <div class="field-wrap">
+                <label>
+                  User Name<span class="req">*</span>
+                </label>
+                <input type="text" required autocomplete="off" />
+              </div>
+
+
+
+            <div class="field-wrap">
+              <label>
+                Email Address<span class="req">*</span>
+              </label>
+              <input type="email"required autocomplete="off"/>
+            </div>
+
+            <div class="field-wrap">
+              <label>
+                Set A Password<span class="req">*</span>
+              </label>
+              <input type="password"required autocomplete="off" id="pswdsign"/>
+            </div>
+
+            <div class="top-row">
+              <h3><input type="checkbox" onclick="showPassSign()">Show Password</h3>
+            </div>
+
+            <button type="submit" class="button button-block"/>Get Started</button>
+            <!-- Validar los datos + cambiar si validos href-->
+
+          </form>
+
+        </div>
+        
+      </div><!-- tab-content -->
+      
+</div> <!-- /form -->
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+  
+
+    <script  src="js/index.js"></script>
+
+
+
+</body>
+
+</html>

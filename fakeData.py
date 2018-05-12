@@ -9,7 +9,7 @@ listnames=[]
 
 for i in range(0, 1000):
 	usernames.append(fake.user_name())
-	print("INSERT INTO usuario VALUES ('{}');".format(usernames[i]))
+	print("INSERT INTO usuario VALUES ('{}','{}','{}');".format(usernames[i],fake.word(ext_word_list=None),fake.email()))
 
 for i in range(0, 400):
 	projectnames.append(fake.word(ext_word_list=None))

@@ -4,7 +4,7 @@ from flask_sqlalchemy  import SQLAlchemy
 #con la base de datos, yo usaria alchemy
 
 class DbAdapter:
-	
+	engine=create_engine('postgresql://admin:1234@localhost:2223/practica1')
 	#funciones
 	def mostrar_recomendaciones(idUser):
 		#mirar tabla de mas vistos por user
@@ -37,7 +37,15 @@ class DbAdapter:
 
 	def mas_visitados():	
 		#mostrar los proyectos mas visitados,p.e. 100
-		res=db.engine.execute('SELECT * FROM proyecto ORDER BY numVisitas DESC LIMIT 100;')
+		
+
+
+
+
+
+
+
+
 		return res
 
 	def es_administrador(idPropio,idProyecto):

@@ -12,7 +12,9 @@ DROP TABLE visita CASCADE;
 
 
 CREATE TABLE usuario (
-	nombre			char(40)	PRIMARY KEY CHECK (nombre <> '')
+	nombre			char(40)	PRIMARY KEY CHECK (nombre <> ''),
+	contraseña		char(40)	CHECK (nombre <> ''),
+	correo 			char(60)	CHECK (correo ~ '([A-Za-z]|[0-9]|\.|_|-)+@([A-Za-z]|[0-9]|\.|_|-)+\.([A-Za-z]|[0-9]|\.|_|-)')
 );
 
 CREATE TABLE proyecto (
