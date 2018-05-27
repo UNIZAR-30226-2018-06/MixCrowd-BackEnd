@@ -19,12 +19,13 @@ CREATE TABLE usuario (
 
 CREATE TABLE proyecto (
 	nombre			char(40)	PRIMARY KEY CHECK (nombre <> ''),
-	fechaCreacion	date		DEFAULT CURRENT_TIMESTAMP,
-	fechaUltimaMod	date		DEFAULT CURRENT_TIMESTAMP,
+	fechaCreacion	date		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	fechaUltimaMod	date		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	numVisitas		integer		NOT NULL DEFAULT 0,
 	imagen			text,
 	privacidad		boolean		NOT NULL,
 	valoracion		integer		DEFAULT 0,
+	descripcion		char(500),
 	administrador	char(40),
 	FOREIGN KEY (administrador) REFERENCES usuario(nombre)
 );
@@ -66,7 +67,7 @@ CREATE TABLE comentario (
 
 CREATE TABLE lista (
 	nombre			char(40)	PRIMARY KEY CHECK (nombre <> ''),
-	fechaCreacion	date		DEFAULT CURRENT_TIMESTAMP
+	fechaCreacion	date		NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE pertenece (
@@ -81,7 +82,10 @@ CREATE TABLE pista (
 	nombre			char(40)	CHECK (nombre <> ''),
 	proyecto_nombre	char(40),
 	audio			bytea,
-	fecha 			date		DEFAULT CURRENT_TIMESTAMP,
+	fecha 			date		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	instante		integer 	NOT NULL DEFAULT +0,
+	duracion		integer 	NOT NULL DEFAULT +0,
+	panning			integer		NOT NULL DEFAULT +50 CHECK (panning<+101 AND panning>-1),
 	PRIMARY KEY(nombre,proyecto_nombre),
 	FOREIGN KEY (proyecto_nombre) REFERENCES proyecto (nombre)
 );
@@ -98,7 +102,7 @@ CREATE TABLE valoracion (
 CREATE TABLE visita (
 	proyecto_nombre	char(40),
 	usuario_nombre	char(40),
-	fecha 			date		DEFAULT CURRENT_TIMESTAMP,
+	fecha 			date		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY(usuario_nombre,proyecto_nombre,fecha),
 	FOREIGN KEY (proyecto_nombre) REFERENCES proyecto (nombre),
 	FOREIGN KEY (usuario_nombre) REFERENCES usuario(nombre)
