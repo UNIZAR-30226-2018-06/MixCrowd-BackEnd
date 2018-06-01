@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../static/style2.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="../static/jotaese.js"></script>
+  <script src="../static/lista.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>		
+</head>
+<body onload="carga('{{idUser}}')">
+<div class="bg">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://mixcrowddb.sytes.net:5000/mostrar_inicio/{{idUser}}">MixCrowd</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="http://mixcrowddb.sytes.net:5000/mostrar_inicio/{{idUser}}">HOME</a></li>
+      <li id = "kulunguele"></li>
+      <li><a href="http://mixcrowddb.sytes.net:5000/mostrar_busqueda/{{idUser}}">EXPLORE</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right", id="sign">
+    
+    </ul>
+    <!-- <form class="navbar-form navbar-left" action="/action_page.php">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search" name="search">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </div>
+      </div>
+    </form> -->
+  </div>
+</nav>
+<h1 style="color: #ebebeb">MUSICAL PROJECTS</h1><div class="btnADD" data-toggle="modal" data-target="#myModal">+ Add project</div>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="nuevo">
+    <div class="modal-dialog">
+	  <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Create Project</h4>
+        </div>
+        <div class="modal-body">
+          <p>Complete with information.</p>
+          <form id="proyecto_form" action="http://mixcrowddb.sytes.net:5000/projectnuevo/{{idUser}}" style="max-width:500px;margin:auto" method="POST">
+            <div class="input-container">
+              <i class="fa fa-user icon"></i>
+              <input class="input-field" type="text" placeholder="Title" name="title">
+            </div>
+
+            <div class="input-container">
+              <i class="fa fa-sticky-note-o icon"></i>
+              <input class="input-field" type="text" placeholder="Description" name="descp">
+            </div>
+            <p> Selecciona el estilo:</p> 
+            <input type="checkbox" name="estilo" value="pop" id="pop"> Pop<br>
+            <input type="checkbox" name="estilo" value="rock" id="rock"> Rock<br>
+            <input type="checkbox" name="estilo" value="metal" id="metal"> Metal<br>
+            <input type="checkbox" name="estilo" value="punk" id="punk"> Punk<br>
+            <input type="checkbox" name="estilo" value="hiphop" id="hiphop"> Hip-Hop<br>
+            <input type="checkbox" name="estilo" value="clasica" id="clasica"> Clasica<br>
+            <input type="checkbox" name="estilo" value="otro" id="otro"> Otro<br><br>
+            <p> Selecciona el tipo de proyecto:</p> 
+            <input type="radio" name="privacidad" value="public" id="public" checked> Public<br>
+            <input type="radio" name="privacidad" value="private" id="private"> Private<br>
+            <!-- <div class="input-container">
+              <i class="fa fa-sticky-note-o icon"></i>
+              <input class="input-field" type="text" placeholder="Style" name="stl">
+            </div> -->
+
+            <div class="input-container">
+              <i class="fa fa-photo icon"></i>
+              <input class="input-field" type="text" placeholder="imgProject(url)" name="imgPro">
+            </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default"  >Create</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      	</form>
+      </div>
+
+    </div>
+  </div>
+<div id="listaProyectos" >
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Configuration</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="../static/configstyle.css">
+  <script src="../static/config.js"></script>
+  <script src="../static/jotaese.js"></script>
+</head>
+
+<body onload="loadConf('{{idUser}}')">
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://mixcrowddb.sytes.net:5000/mostrar_inicio/{{idUser}}">MixCrowd</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="http://mixcrowddb.sytes.net:5000/mostrar_inicio/{{idUser}}">HOME</a></li>
+      <li id="kulunguele"></li>
+      <li><a href="http://mixcrowddb.sytes.net:5000/mostrar_busqueda/{{idUser}}">EXPLORE</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <!--
+      <li><a href="../Conconfig.htmlhtml"><span class="glyphicon glyphicon-user"></span> User</a></li> <!-- -->
+      <!-- CAMBIAR Sign POR Logout  SI ESTA LOGUEADO -->
+      <li><a href="http://mixcrowddb.sytes.net:5000/"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li> <!-- -->
+    </ul>
+    <!-- <form class="navbar-form navbar-left" action="/action_page.php">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search" name="search">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </div>
+      </div>
+    </form> -->
+  </div>
+</nav>
+
+  <div class="form">
+      <div class="tab-content">
+        <form action="/" method="post">
+          <h1>Personal data</h1>
+          <div class="field-wrap">
+            <label for="colaborador"></label>
+            <input type="text" autocomplete="off" id="colaborador" placeholder="Collaborator" value=""/>
+            <button type="bottom" class="button button-block"/>Add Collaborator</button>
+            <div class="coll-box" id="coll">
+    
+            </div>
+          </div>
+
+          <div class="coll-box" id="infoU">
+    
+            </div>
+          
+
+          <div class="top-row">
+            <div class="check_box"> <input type="checkbox" onclick="showPass()"> </div>
+            <div class="check_box"> <h3>&nbsp; Show Password</h3> </div>
+          </div>
+          <button type="submit" class="button button-block"/>Save</button>
+          <h4>When "Save" is clicked, the changes are made and sent to the email</h4>
+        </form>
+      </div><!-- tab-content -->
+      
+  </div> <!-- /form -->
+  <script  src="config.js"></script>
+</body>
+
+</html>

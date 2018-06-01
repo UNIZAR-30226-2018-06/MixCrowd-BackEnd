@@ -1,0 +1,367 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
+:root {
+  --color: #faa700;
+  --color-light: #f5ede1;
+  --dark: #a7a7a7;
+  --dark: #8a8a8a;
+  --darker: #303030;
+  --sans-serif: 'Roboto', sans-serif;
+}
+
+body {
+  font-family: var(--sans-serif);
+  background: #eeeeee;
+}
+
+body {
+  background: #0a1a24;
+}
+
+.background {
+  width: 100%;
+  height: 56.25vw;
+  background: url(https://img.peerspace.com/image/upload/f_auto,q_auto,fl_lossy/e_brightness_hsb:-40/jonathan-velasquez-160775_seipe2) center/cover;
+  -webkit-box-shadow: inset 0px -17vw 20vw 1vw #0a1a24;
+  box-shadow: inset 0px -17vw 20vw 1vw #0a1a24;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+.background img {
+  max-width: 100%;
+  max-height: 100vh;
+  -webkit-box-shadow: inset 0px -17vw 30vw 1vw #131313;
+  box-shadow: inset 0px -17vw 30vw 1vw #131313;
+}
+.background + section {
+  margin-top: 60vmin;
+  background: transparent;
+  --dark: rgba(white, .5);
+  --dark: rgba(white, .6);
+  --darker: rgba(white, .8);
+  margin-top: 10%;
+}
+.background + section .goBack {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.background + section .album-tracks {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+}
+
+section {
+  background: #fafafa;
+  margin: 100px 56px;
+  padding: 20px 56px;
+  color: var(--darker);
+  color: rgba(255, 255, 255, 0.8);
+}
+section .album-info:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+}
+section .album-art {
+  float: left;
+  width: 220px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+section .album-art * {
+  border-radius: 3px;
+}
+section .album-art img {
+  width: 100%;
+  margin-bottom: 10px;
+  margin-top: -80px;
+  -webkit-box-shadow: 0 5px 60px -3px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 5px 60px -3px rgba(0, 0, 0, 0.18);
+}
+section .play {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: initial;
+  flex-wrap: initial;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: initial;
+  align-content: initial;
+  color: white;
+  background: var(--color);
+  padding: 10px;
+  text-transform: uppercase;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 0 50%;
+  flex: 1 0 50%;
+}
+section .goBack {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: initial;
+  flex-wrap: initial;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: initial;
+  align-content: initial;
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--color-light);
+  margin-left: 10px;
+}
+section .album-details > * {
+  padding: 10px;
+  width: 70%;
+}
+section h2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: initial;
+  flex-wrap: initial;
+  -webkit-box-pack: initial;
+  -ms-flex-pack: initial;
+  justify-content: initial;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: initial;
+  align-content: initial;
+  color: var(--dark);
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+section h2 img {
+  width: 24px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+section h1 {
+  font-size: 50px;
+  font-weight: 300;
+}
+section h1 + span {
+  color: var(--dark);
+}
+section h1 + span span:first-child {
+  padding-right: 20px;
+}
+section p {
+  margin-top: 15px;
+}
+section .album-tracks {
+  background: #f8f8f8;
+  border: 1px solid #efefef;
+  margin-top: 20px;
+}
+@media (max-width: 800px) {
+  section {
+    margin: 100px 36px 36px 36px;
+  }
+}
+@media (max-width: 700px) {
+  section .album-art {
+    width: 100%;
+  }
+  section .album-art img {
+    width: auto;
+    max-width: 100%;
+    margin: -100px auto 10px auto;
+    display: block;
+  }
+  section .album-details {
+    float: left;
+    max-width: 100%;
+  }
+}
+@media (max-width: 550px) {
+  section {
+    margin: 100px 20px 20px 20px;
+    padding: 20px 16px;
+  }
+  section ol {
+    padding: 16px;
+  }
+}
+
+ol {
+  list-style-type: none;
+  padding: 20px 36px;
+  font-weight: 500;
+}
+ol li {
+  counter-increment: number;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: initial;
+  flex-wrap: initial;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: initial;
+  align-content: initial;
+  height: 45px;
+  color: var(--dark);
+}
+ol li span:not(:last-child) {
+  margin-right: 2em;
+}
+@media (max-width: 700px) {
+  ol li span:not(:last-child) {
+    margin-right: 1em;
+  }
+}
+ol li span:first-child {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: var(--darker);
+}
+ol li span:first-child:before {
+  content: counter(number);
+  margin-right: 2em;
+  color: var(--dark);
+  display: inline-block;
+  text-align: end;
+  width: 20px;
+}
+
+.actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: initial;
+  flex-wrap: initial;
+  -webkit-box-pack: initial;
+  -ms-flex-pack: initial;
+  justify-content: initial;
+  -webkit-box-align: initial;
+  -ms-flex-align: initial;
+  align-items: initial;
+  -ms-flex-line-pack: initial;
+  align-content: initial;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+}
+
+
+span{
+  width: 24%;
+  float: right;*/
+}
+
+.parrafo {
+  float: left;
+  width: 100%;
+  height: 100%;
+}
+
+.parrafo2 {
+  margin-right: 100%;
+}
+
+.spaneitor{
+  float:left;
+  margin-right: 100%;
+
+  }
+
+
+.container-audio {
+    width: 66%;
+    height: auto;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #eee;
+    color: #444;
+    margin: 20px auto;
+    overflow: hidden;
+}
+audio {
+  width:100%;
+}
+audio:nth-child(2), audio:nth-child(4), audio:nth-child(6) {
+    margin: 0;
+}
+
+.star-rating {
+  font-family: 'FontAwesome';
+  margin: 50px auto;
+}
+.star-rating > fieldset {
+  border: none;
+  display: inline-block;
+}
+.star-rating > fieldset:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+  clip: rect(0, 0, 0, 0);
+}
+.star-rating > fieldset:not(:checked) > label {
+  float: right;
+  width: 1em;
+  padding: 0 .05em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 300%;
+  color: #16a085;
+}
+.star-rating > fieldset:not(:checked) > label:before {
+  content: '\f006  ';
+}
+.star-rating > fieldset:not(:checked) > label:hover,
+.star-rating > fieldset:not(:checked) > label:hover ~ label {
+  color: #1abc9c;
+  text-shadow: 0 0 3px #1abc9c;
+}
+.star-rating > fieldset:not(:checked) > label:hover:before,
+.star-rating > fieldset:not(:checked) > label:hover ~ label:before {
+  content: '\f005  ';
+}
+.star-rating > fieldset > input:checked ~ label:before {
+  content: '\f005  ';
+}
+.star-rating > fieldset > label:active {
+  position: relative;
+  top: 2px;
+}
+
+.star-val {
+  unicode-bidi: bidi-override;
+  color: #c5c5c5;
+  font-size: 40px;
+  height: 25px;
+  width: 200px;
+  padding: 0;
+  text-shadow: 0px 1px 0 #a2a2a2;
+}
+
+.star-val span{
+  width: 20%;
+}
+
+.checked{
+  color:#16a085;
+}
+
+.album-art img{
+  height: 200px;
+  width: 100px;
+}

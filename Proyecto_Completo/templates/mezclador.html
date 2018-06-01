@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Project</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../static/mixstyle.css">
+  <link rel="stylesheet" href="../static/mixestilo.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="../static/jotaese.js"></script>
+  <script src="../static/script.js"></script>
+</head>
+<body onload="loadMix('{{name}}','{{idUser}}')">
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://mixcrowddb.sytes.net:5000/inicio/{{name}}">MixCrowd</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="http://mixcrowddb.sytes.net:5000/inicio/{{name}}">HOME</a></li>
+      <li id="kulunguele"></li> <!-- NO ES ACCESIBLE SI NO ESTA LOGUEADO -->
+      <li><a href="http://mixcrowddb.sytes.net:5000/busqueda/{{name}}">EXPLORE</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right" id="sign">
+     
+    </ul>
+    
+  </div>
+</nav>
+
+
+
+<div class="background"></div>
+<section>
+
+  <div class="album-info" id="albumDescription"> 
+  </div>
+
+  <div class="container-audio" id="reproductor_bueno">
+     <audio controls id="subReproductor">
+      <source src="../static/chamas.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <div class="star-val" id="val_media">
+    
+  </div>
+  <br>
+  <div class="star-rating" id="val_user">
+  
+  </div>
+
+
+  <br>
+  <div> <h2> <label id="seleccionarTodo" for="selectFile">Seleccionar Canción</label> </h2> </div>
+  <div id="seleccion">
+  
+  </div>
+
+
+  <div class="album-tracks">
+    <ol id="lista">
+      
+    </ol>
+  </div>
+
+  <div> <h2> <button type="button" class="btn btn-primary" onclick="activarMezclador('{{name}}','{{idUser}}')" id="btnMixer">Mezclar</label> </h2> </div>
+
+</section>
+
+<div class="comentarios" id="comments">
+  
+</div>
+
+<div class="container">
+  <form action="http://mixcrowddb.sytes.net:5000/set_comentario/{{name}}" method="POST">
+    <label for="comentario">Comentario</label> <br/>
+    <textarea id="comentario" name="comentario" placeholder="Escriba su comentario..."  style="width:800px"></textarea>
+    <br/>
+
+    <input type="submit" value="Submit">
+  </form>
+</div>
+<br/><br/>
+
+
+</body>
+
+</html>

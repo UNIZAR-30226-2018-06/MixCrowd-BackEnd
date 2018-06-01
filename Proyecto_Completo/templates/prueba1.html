@@ -1,0 +1,26 @@
+<html>
+   <head>
+        <title>MixCrowd</title>
+   </head>
+   <body>
+
+      <h1>MixCrowd</h1>
+      <form action = "http://localhost:5000/prueba_uploader" method = "POST"
+          enctype = "multipart/form-data">
+          <input type = "file" name = "file1" /><br/>
+          <input type = "file" name = "file2" /><br/>
+          <input type = "submit" value = "subir" />
+      </form><br/>
+      <script>
+        function pedirReproductor() {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open( "GET", "http://localhost:5000/prueba_uploader", false );
+                xmlHttp.send( null );
+                var ansMyFunction = xmlHttp.responseText;
+                document.getElementById("reproductor").innerHTML = ansMyFunction;
+        }
+      </script>
+        <button type="button" onclick="pedirReproductor()">Mezclar</button>
+      </body>
+      <p id="reproductor"> </p>
+</html>

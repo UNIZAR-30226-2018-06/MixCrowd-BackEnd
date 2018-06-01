@@ -1,0 +1,114 @@
+body {
+  background: #0a1a24;
+  color: #ffffff;
+}
+
+.carousel{
+    background: rgba(85, 85, 85, 0.3);/*rgba(7, 20, 27, 0.8);*/
+    margin-top: 20px;
+}
+.carousel .item{
+    min-height: 280px; /* Prevent carousel from being distorted if for some reason image doesn't load */
+}
+.carousel .item img{
+    margin: 0 auto; /* Align slide image horizontally center */
+    padding: 20px;
+    width: 300px;
+    height: 300px;
+}
+
+.bs-example{
+    margin: 20px;
+}
+
+.carousel-caption {
+    background-color: rgba(85, 85, 85, 0.65);
+}
+
+
+
+.dropdown.dropdown-lg .dropdown-menu {
+    margin-top: -1px;
+    padding: 6px 20px;
+}
+.input-group-btn .btn-group {
+    display: flex !important;
+}
+.btn-group .btn {
+    border-radius: 0;
+    margin-left: -1px;
+}
+.btn-group .btn:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.btn-group .form-horizontal .btn[type="submit"] {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+.form-group .form-control:last-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.containerList {
+    padding-top: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-right: 20px;
+}
+
+.list-group {
+    margin-right: 20px;
+}
+
+
+.list-group-item {
+    border-radius: 7px;
+    width: 300px;
+    height: 250px;
+    padding-left: 30px;
+    float: left;
+    margin-right: 6px;
+    margin-top: 8px;
+    background: rgba(185, 185, 185, 0.7);
+}
+
+.list-group-item h4{
+    color: #171717;
+}
+
+.list-group-item h5{
+    color: #171717;
+}
+
+.list-group-item img{
+    width: 150px;
+    height: 150px;
+}
+
+@media screen and (min-width: 768px) {
+    #adv-search {
+        width: 500px;
+        margin: 0 auto;
+    }
+    .dropdown.dropdown-lg {
+        position: static !important;
+    }
+    .dropdown.dropdown-lg .dropdown-menu {
+        min-width: 500px;
+    }
+}
+
+.divider {
+    height: 1px;
+    width:100%;
+    display:block; /* for use on default inline elements like span */
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: transparent;
+}
